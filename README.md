@@ -87,9 +87,7 @@ erDiagram
 
 ## 初始 Prompt
 
-# 人事管理系統 Demo 專案需求規格
-
-## 開發環境與技術 (Environment)
+** 開發環境與技術 (Environment)**
 
 - **工具**: Visual Studio 2026
 - **框架**: .NET 10.0, WinForms
@@ -97,7 +95,7 @@ erDiagram
 - **資料庫**: MySQL (Ver 8.0)
 - **專案名稱**: 人事管理系統 demo
 
-## 功能需求 (Functional Requirements)
+** 功能需求 (Functional Requirements)**
 
 1.  **員工資料管理**
     - 欄位: `ID`, `name`, `account`, `password`, `gender`, `rankID`, `deptID`, `birthday`, `createDate`, `joinDate`, `leaveDate`, `isEmployed`, `mobile`, `email`, `note`
