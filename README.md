@@ -45,3 +45,42 @@
    - *體驗*: 只能看到自己部門的員工，且無法點擊「系統設定」相關按鈕。
 3. **一般員工 (行政-職員)**: 登入 `admin_staff` / `1234`
    - *體驗*: 登入後列表只有自己一筆資料，無法進行任何編輯操作。
+
+## 資料庫架構 (Database Schema)
+
+```mermaid
+erDiagram
+    Departments {
+        int ID PK
+        string Name
+    }
+    Ranks {
+        int ID PK
+        string Name
+        int RankLevel
+    }
+    Permissions {
+        string PermCode PK
+        string Description
+    }
+    RolePermissions {
+        int DeptID PK
+        int RankID PK
+        string PermCode PK
+    }
+    Employees {
+        int ID PK
+        string Account
+        string Password
+        string Name
+        int DeptID FK
+        int RankID FK
+        datetime JoinDate
+    }
+
+    Departments ||--o{ Employees : "belongs_to"
+    Ranks ||--o{ Employees : "assigned_as"
+    Departments ||--o{ RolePermissions : "defines_scope"
+    Ranks ||--o{ RolePermissions : "defines_scope"
+    Permissions ||--o{ RolePermissions : "grants"
+```
