@@ -2,7 +2,7 @@
 
 這是一個展示如何在傳統 **WinForms** 應用程式中，實現現代化架構、高效能數據處理與彈性權限設計 (RBAC) 的技術示範專案。適合開發者參考如何構建可維護的企業級桌面應用程式。
 
-## ✨ 專案亮點 (Key Features)
+## 專案亮點 (Key Features)
 
 ### 1. 高效能數據呈現 (High Performance UI)
 不依賴分頁控制項，直接實作 **DataGridView Virtual Mode (虛擬模式)**。
@@ -26,7 +26,7 @@
 
 ---
 
-## 🛠️ 技術核心 (Tech Stack)
+## 技術核心 (Tech Stack)
 
 *   **Runtime**: .NET 10.0 (Windows) - 運用最新的 .NET 效能優勢。
 *   **ORM**: [Dapper](https://github.com/DapperLib/Dapper) - 輕量級、高效能的微型 ORM，保留 SQL 的彈性與全速運作。
@@ -35,7 +35,7 @@
 
 ---
 
-## 🚀 快速展示 (Quick Demo)
+## 快速展示 (Quick Demo)
 
 本專案內建預設的測試情境，方便快速體驗不同角色的權限差異：
 
