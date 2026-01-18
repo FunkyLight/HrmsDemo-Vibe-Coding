@@ -1,70 +1,47 @@
-# HrmsDemo - 人力資源管理系統 (HRMS)
+# HrmsDemo - 企業級 WinForms 權限管理系統範例
 
-這是一個基於 .NET WinForms 與 MySQL 的簡易人力資源管理系統範例，展示了基本 CRUD 操作、虛擬模式列表 (Virtual Mode DataGridView) 以及以角色為基礎的權限控制 (RBAC)。
+這是一個展示如何在傳統 **WinForms** 應用程式中，實現現代化架構、高效能數據處理與彈性權限設計 (RBAC) 的技術示範專案。適合開發者參考如何構建可維護的企業級桌面應用程式。
 
-## 技術堆疊 (Tech Stack)
+## ✨ 專案亮點 (Key Features)
 
-- **Framework**: .NET 10.0 (Windows)
-- **UI**: Windows Forms (WinForms)
-- **Database**: MySQL 8.0+
-- **ORM**: Dapper (v2.1.66)
-- **MySql Library**: MySql.Data (v9.5.0)
+### 1. 高效能數據呈現 (High Performance UI)
+不依賴分頁控制項，直接實作 **DataGridView Virtual Mode (虛擬模式)**。
+- **毫秒級載入**: 僅渲染視窗可見範圍內的數據，即使資料庫有數萬筆員工資料，介面依然流暢不卡頓。
+- **動態捲動**: 模擬無限捲動 (Infinite Scroll) 的使用者體驗。
 
-## 功能特色
+### 2. 精細的權限控制系統 (Flexible RBAC)
+捨棄單純的「管理員/使用者」二分法，採用 **由下而上 (Bottom-up)** 的權限設計模式：
+- **矩陣式角色**: 角色由 `部門 (Department)` + `職級 (Rank)` 交叉組合而成 (例如：人事部-經理、行政部-職員)。
+- **資料範圍權限**: 支援細粒度的資料存取範圍控制：
+  - `VIEW_SELF`: 僅查看自己
+  - `VIEW_DEPT`: 僅查看同部門
+  - `VIEW_ALL`: 查看全公司
+- **功能級權限**: 針對特定按鈕或操作 (新增、修改、刪除) 進行授權。
 
-- **員工管理**: 支援搜尋、新增、修改、刪除員工資料。
-- **高效列表**: 使用 DataGridView Virtual Mode 處理大量資料載入。
-- **部門與職位**: 管理部門與職位結構。
-- **權限控制 (RBAC)**: 
-  - 透過 `Dept` (部門) + `Rank` (職位) 組合對應 `PermCode` (權限代碼)。
-  - 支援不同層級的資料檢視權限 (查看全部、查看部門、查看自己)。
-- **權限管理介面**: 可視化設定不同角色的權限。
+### 3. 清晰的分層架構 (Clean Architecture)
+展示如何在 WinForms 專案中維持程式碼的整潔與可測試性：
+- **Repository Pattern**: 將資料存取邏輯封裝，與 UI 解耦。
+- **Service Layer**: 集中處理商業邏輯與權限驗證。
+- **Thin UI**: Form 只負責顯示與事件轉發，不包含複雜邏輯。
 
-## 快速開始 (Quick Start)
+---
 
-### 1. 建立資料庫
+## 🛠️ 技術核心 (Tech Stack)
 
-請使用 MySQL Workbench 或 CLI 執行專案根目錄下的 SQL 腳本：
+*   **Runtime**: .NET 10.0 (Windows) - 運用最新的 .NET 效能優勢。
+*   **ORM**: [Dapper](https://github.com/DapperLib/Dapper) - 輕量級、高效能的微型 ORM，保留 SQL 的彈性與全速運作。
+*   **Database**: MySQL 8.0+ - 穩定可靠的開源資料庫。
+*   **Design Pattern**: Repository Pattern, Singleton (DbHelper), Async/Await。
 
-1.  執行 `db_init.sql` 初始化資料庫結構與基礎數據。
-2.  (選用) 執行 `seed_50_employees.sql` 產生測試用的 50 筆員工資料。
+---
 
-### 2. 設定連線字串
+## 🚀 快速展示 (Quick Demo)
 
-打開 `HrmsDemo/Helpers/DbHelper.cs`，修改 `ConnectionString` 屬性以符合您的環境：
+本專案內建預設的測試情境，方便快速體驗不同角色的權限差異：
 
-```csharp
-public static string ConnectionString { get; set; } = "Server=localhost;Database=HrmsDB;Uid=root;Pwd=YOUR_PASSWORD;";
-```
-
-### 3. 編譯與執行
-
-使用 Visual Studio 2022+ 或 CLI 執行專案：
-
-```bash
-dotnet build
-dotnet run --project HrmsDemo/HrmsDemo.csproj
-```
-
-## 預設測試帳號 (Default Accounts)
-
-所有預設密碼皆為: `1234`
-
-| 帳號 (Account) | 角色 (Role) | 權限說明 |
-| :--- | :--- | :--- |
-| `hr_manager` | 人事主管 | 擁有完整管理權限 (新增/刪除員工、管理部門/職位/權限) |
-| `hr_staff` | 人事職員 | 可管理員工資料，但無權限設定功能 |
-| `admin_manager`| 行政主管 | 僅能查看本部們員工 |
-| `admin_staff` | 行政職員 | 僅能查看自己資料 |
-
-## 專案結構
-
-- **Repositories/**: 資料存取層 (Dapper 實作)
-- **Services/**: 商業邏輯層
-- **Models/**: 資料實體 (POCOs)
-- **Helpers/**: 工具類 (DbHelper)
-- **Forms**:
-  - `MainForm`: 主視窗 (員工列表與功能選單)
-  - `LoginForm`: 登入視窗
-  - `DeptForm` / `RankForm`: 部門與職位管理
-  - `RolePermForm`: 角色權限設定
+1. **超級管理者 (人事-主管)**: 登入 `hr_manager` / `1234`
+   - *體驗*: 可以看到所有按鈕，能編輯任何人，能管理部門與職位。
+2. **部門管理者 (行政-主管)**: 登入 `admin_manager` / `1234`
+   - *體驗*: 只能看到自己部門的員工，且無法點擊「系統設定」相關按鈕。
+3. **一般員工 (行政-職員)**: 登入 `admin_staff` / `1234`
+   - *體驗*: 登入後列表只有自己一筆資料，無法進行任何編輯操作。
