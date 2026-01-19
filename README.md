@@ -1,4 +1,4 @@
-# HrmsDemo - 企業級 WinForms 權限管理系統範例
+# HrmsDemo - WinForms 權限管理系統範例
 
 這是一個展示如何在傳統 **WinForms** 應用程式中，實現現代化架構、高效能數據處理與彈性權限設計 (RBAC) 的技術示範專案。適合開發者參考如何構建可維護的企業級桌面應用程式。
 
@@ -84,6 +84,11 @@ erDiagram
     Ranks ||--o{ RolePermissions : "defines_scope"
     Permissions ||--o{ RolePermissions : "grants"
 ```
+## 帳號密碼
+人事主管 帳號：hr_manager 密碼：1234
+人事職員 帳號：hr_staff 密碼：1234
+行政主管 帳號：admin_manager 密碼：1234
+行政職員 帳號：admin_staff 密碼：1234
 
 ## 初始 Prompt
 
